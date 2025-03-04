@@ -17,7 +17,7 @@ body{
     align-items: center;
     margin: 150px auto;
     max-width: 500px;
-    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.3);
     background-color: aliceblue;
     padding: 4px;
     border-radius: 5px;
