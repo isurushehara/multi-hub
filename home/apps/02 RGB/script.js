@@ -13,6 +13,7 @@ const inputypeRGBValue = document.getElementById("inputType");
 
 redSlider.addEventListener('input',updateColor);
 greenSlider.addEventListener('input',updateColor);
+blueSlider.addEventListener('input',updateColor);
 copyButton.addEventListener('click',inputType);
 
 function updateColor(){
@@ -31,6 +32,9 @@ function updateColor(){
     bluevalueSpan.textContent = blueValue;
 
 
+    inputType.textContent = rbgColor;
+
+
 
 
 }
@@ -39,6 +43,20 @@ function updateColor(){
 updateColor();
 
 
-function inputType(){
+function copyButton1(){
 
+    const redValue = redSlider.value;
+    const greenValue = greenSlider.value;
+    const blueValue = blueSlider.value;
+
+    const rbgColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+
+    navigator.clipboard.writeText(rbgColor)
+
+    .then(()=>{
+        alert("RGB color value copied to clipboard: " + rbgColor);
+    })
+    .catch((error)=>{
+        console.error("Failded to copy RGB values",error);
+    });
 }
