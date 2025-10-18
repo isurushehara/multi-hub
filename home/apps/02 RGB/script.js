@@ -3,36 +3,43 @@ const greenSlider = document.getElementById("greenSlider");
 const blueSlider = document.getElementById("blueSlider");
 
 
-const redvalueSpan = document.getElementById("redValue");
-const greenvalueSpan = document.getElementById("greenValue");
-const bluevalueSpan = document.getElementById("blueValue");
+const redValueSpan = document.getElementById("redValue");
+const greenValueSpan = document.getElementById("greenValue");
+const blueValueSpan = document.getElementById("blueValue");
 
 const colorBox = document.getElementById("color-box");
 const copyButton = document.getElementById("copyButton");
-const inputypeRGBValue = document.getElementById("inputType");
+const inputTypeValue = document.getElementById("inputType");
 
-redSlider.addEventListener('input',updateColor);
-greenSlider.addEventListener('input',updateColor);
-blueSlider.addEventListener('input',updateColor);
-copyButton.addEventListener('click',inputType);
+redSlider.addEventListener('input', updateColor);
+greenSlider.addEventListener('input', updateColor);
+blueSlider.addEventListener('input', updateColor);
+copyButton.addEventListener('click', copyToClipboard);
+inputTypeValue.addEventListener('click', copyToClipboard);
+inputTypeValue.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        copyToClipboard();
+    }
+});
 
 function updateColor(){
     const redValue = redSlider.value;
     const greenValue = greenSlider.value;
     const blueValue = blueSlider.value;
 
-    const rbgColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+    const rgbColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
     //console.log(rbgColor);
 
-    colorBox.style.backgroundColor = rbgColor;
+    colorBox.style.backgroundColor = rgbColor;
 
 
-    redvalueSpan.textContent = redValue;
-    greenvalueSpan.textContent = greenValue;
-    bluevalueSpan.textContent = blueValue;
+    redValueSpan.textContent = redValue;
+    greenValueSpan.textContent = greenValue;
+    blueValueSpan.textContent = blueValue;
 
 
-    inputType.textContent = rbgColor;
+    inputTypeValue.textContent = rgbColor;
 
 
 
@@ -43,18 +50,18 @@ function updateColor(){
 updateColor();
 
 
-function copyButton1(){
+function copyToClipboard(){
 
     const redValue = redSlider.value;
     const greenValue = greenSlider.value;
     const blueValue = blueSlider.value;
 
-    const rbgColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+    const rgbColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
 
-    navigator.clipboard.writeText(rbgColor)
+    navigator.clipboard.writeText(rgbColor)
 
     .then(()=>{
-        alert("RGB color value copied to clipboard: " + rbgColor);
+        alert("RGB color value copied to clipboard: " + rgbColor);
     })
     .catch((error)=>{
         console.error("Failded to copy RGB values",error);
