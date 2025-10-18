@@ -1,28 +1,46 @@
-// Elements
-const redSlider = document.getElementById('redSlider');
-const greenSlider = document.getElementById('greenSlider');
-const blueSlider = document.getElementById('blueSlider');
-const redValue = document.getElementById('redValue');
-const greenValue = document.getElementById('greenValue');
-const blueValue = document.getElementById('blueValue');
-const colorBox = document.getElementById('color-box');
+const redSlider = document.getElementById("redSlider");
+const greenSlider = document.getElementById("greenSlider");
+const blueSlider = document.getElementById("blueSlider");
 
-const rgbChip = document.getElementById('rgbChip');
-const hexChip = document.getElementById('hexChip');
-const hslChip = document.getElementById('hslChip');
 
-const randomBtn = document.getElementById('randomBtn');
-const resetBtn = document.getElementById('resetBtn');
-const copyBtn = document.getElementById('copyBtn');
-const toast = document.getElementById('toast');
+const redValueSpan = document.getElementById("redValue");
+const greenValueSpan = document.getElementById("greenValue");
+const blueValueSpan = document.getElementById("blueValue");
 
-// Helpers
-const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+const colorBox = document.getElementById("color-box");
+const copyButton = document.getElementById("copyButton");
+const inputTypeValue = document.getElementById("inputType");
 
-function toHex(n) {
-    const s = clamp(Number(n) || 0, 0, 255).toString(16);
-    return s.length === 1 ? '0' + s : s;
-}
+redSlider.addEventListener('input', updateColor);
+greenSlider.addEventListener('input', updateColor);
+blueSlider.addEventListener('input', updateColor);
+copyButton.addEventListener('click', copyToClipboard);
+inputTypeValue.addEventListener('click', copyToClipboard);
+inputTypeValue.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        copyToClipboard();
+    }
+});
+
+function updateColor(){
+    const redValue = redSlider.value;
+    const greenValue = greenSlider.value;
+    const blueValue = blueSlider.value;
+
+    const rgbColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+    //console.log(rbgColor);
+
+    colorBox.style.backgroundColor = rgbColor;
+
+
+    redValueSpan.textContent = redValue;
+    greenValueSpan.textContent = greenValue;
+    blueValueSpan.textContent = blueValue;
+
+
+    inputTypeValue.textContent = rgbColor;
+
 
 function rgbToHex(r, g, b) {
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
@@ -88,51 +106,20 @@ function updateUI() {
     hslChip.textContent = hslStr;
 }
 
-function copyText(text) {
-    if (navigator.clipboard?.writeText) {
-        return navigator.clipboard.writeText(text);
-    }
-    // Fallback
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    return Promise.resolve();
-}
+function copyToClipboard(){
 
-// Events
-['input', 'change'].forEach(evt => {
-    redSlider.addEventListener(evt, updateUI);
-    greenSlider.addEventListener(evt, updateUI);
-    blueSlider.addEventListener(evt, updateUI);
-});
+    const redValue = redSlider.value;
+    const greenValue = greenSlider.value;
+    const blueValue = blueSlider.value;
 
-randomBtn.addEventListener('click', () => {
-    setRGB(Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256));
-    showToast('Random color generated');
-});
+    const rgbColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
 
-resetBtn.addEventListener('click', () => {
-    setRGB(0, 0, 0);
-    showToast('Reset to black');
-});
+    navigator.clipboard.writeText(rgbColor)
 
-copyBtn.addEventListener('click', () => {
-    const { r, g, b } = getRGB();
-    const rgbStr = `rgb(${r}, ${g}, ${b})`;
-    copyText(rgbStr).then(() => showToast('Copied RGB to clipboard'));
-});
-
-[rgbChip, hexChip, hslChip].forEach(chip => {
-    chip.addEventListener('click', () => {
-        const { r, g, b } = getRGB();
-        const type = chip.dataset.type;
-        const text = type === 'rgb' ? `rgb(${r}, ${g}, ${b})` : type === 'hex' ? rgbToHex(r, g, b) : rgbToHsl(r, g, b);
-        copyText(text).then(() => showToast(`Copied ${type.toUpperCase()}!`));
+    .then(()=>{
+        alert("RGB color value copied to clipboard: " + rgbColor);
+    })
+    .catch((error)=>{
+        console.error("Failded to copy RGB values",error);
     });
-});
-
-// Init
-updateUI();
+}

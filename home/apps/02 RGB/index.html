@@ -8,45 +8,41 @@
     <meta name="description" content="Modern RGB color generator with live preview, RGB/HEX/HSL outputs, and quick copy.">
 </head>
 <body>
-    <div class="app">
-        <header class="header">
-            <h1>RGB Color Generator</h1>
-            <p class="subtitle">Tweak sliders to craft your color.</p>
-        </header>
 
-        <main class="card">
-            <section class="preview" id="color-box" aria-label="Color preview" role="img"></section>
+    <div class="container">
 
-            <section class="values" aria-label="Color values">
-                <button class="chip" id="rgbChip" data-type="rgb" title="Click to copy RGB">rgb(0, 0, 0)</button>
-                <button class="chip" id="hexChip" data-type="hex" title="Click to copy HEX">#000000</button>
-                <button class="chip" id="hslChip" data-type="hsl" title="Click to copy HSL">hsl(0, 0%, 0%)</button>
-            </section>
+    <h1>RGB Color Generator</h1>
+        <div class="color-box" id="color-box"></div>
+        
+        <div class="sliders">
 
-            <section class="sliders" aria-label="RGB sliders">
-                <div class="slider-row" data-channel="r">
-                    <label for="redSlider" class="badge badge-r" title="Red">R</label>
-                    <input type="range" id="redSlider" min="0" max="255" value="0" aria-label="Red value">
-                    <output id="redValue" for="redSlider" aria-live="polite">0</output>
-                </div>
-                <div class="slider-row" data-channel="g">
-                    <label for="greenSlider" class="badge badge-g" title="Green">G</label>
-                    <input type="range" id="greenSlider" min="0" max="255" value="0" aria-label="Green value">
-                    <output id="greenValue" for="greenSlider" aria-live="polite">0</output>
-                </div>
-                <div class="slider-row" data-channel="b">
-                    <label for="blueSlider" class="badge badge-b" title="Blue">B</label>
-                    <input type="range" id="blueSlider" min="0" max="255" value="0" aria-label="Blue value">
-                    <output id="blueValue" for="blueSlider" aria-live="polite">0</output>
-                </div>
-            </section>
+            <div class="slider">
+                <label for="redSlider">Red:</label>
+                <input type="range" id="redSlider" min="0" max="255" value="0">
+                <span id="redValue">0</span>
+            </div>
 
-            <section class="actions">
-                <button id="randomBtn" class="btn secondary" title="Random color">Random</button>
-                <button id="resetBtn" class="btn ghost" title="Reset to black">Reset</button>
-                <button id="copyBtn" class="btn primary" title="Copy RGB value">Copy RGB</button>
-            </section>
-        </main>
+            <div class="slider">
+                    <label for="greenSlider">Green:</label>
+            <input type="range" id="greenSlider" min="0" max="255" value="0">
+                    <span id="greenValue">0</span>
+            </div>
+
+                
+            <div class="slider">
+                        <label for="blueSlider">Blue:</label>
+                        <input type="range" id="blueSlider" min="0" max="255" value="0">
+                        <span id="blueValue">0</span>
+            </div>
+
+        </div>
+
+        <div class="button-container">
+            <button id="copyButton">Copy RGB Value</button>
+            <div id="inputType" class="input-type-value" role="button" tabindex="0" title="Click to copy">rgb(0, 0, 0)</div>
+        </div>
+
+
     </div>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
