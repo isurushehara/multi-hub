@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+}
+
+.outer{
+    width: 100vw;
+    height: 100vh;
+    background-color: azure;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.inner{
+    width: 250px;
+    height: 300px;
+    border: 1px solid gainsboro;
+    box-shadow: 5px 5px 5px gainsboro;
+    border-radius: 6px;
+}
+
+.top{
+    padding: 5px;
+}
+
+.input{
+    width: 88%;
+    height: 35px;
+    text-align: right;
+    padding: 0px 12px;
+    font-weight: 600px;
+}
+.input:focus{
+    outline: none;
+
+}
